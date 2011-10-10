@@ -1,0 +1,49 @@
+<html>
+<head>
+  <script type="text/javascript" src="js/protovis.min.js" ></script>
+  <script type="text/javascript" src="js/kasabi.js"></script>
+  <style type="text/css">
+    #fig {
+      width: 800px;
+      height: 800px;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="center">
+    <div id="fig">
+      <script type="text/javascript+protovis">
+        var total_width=1200 , total_height = 1000, left_margin=200;
+		var vis = new pv.Panel()
+						.width(total_width)
+						.height(total_height)
+						.top(200)
+						.left(left_margin);
+ 
+        var layout = vis.add(pv.Layout.Grid);
+		layout.rows(rows);
+		layout.cell.add(pv.Bar)
+				.event("click", function(d) {alert(d)})
+				.strokeStyle("#fff")
+				.fillStyle(function(d) d.substring(d.lastIndexOf('_')+1)==='0'?"#EEEEEE":"#9C9EDC");
+
+		var h = total_height / rows.length;
+		var w = total_width / rows[0].length;
+		//vis.add(pv.Label).text('hello 1').left(-10).textMargin(2).textAlign("right").top(h/2);
+		//vis.add(pv.Label).text('hello hello hello 2').left(-10).textAlign("right").top(3 * h/2);
+		
+		for(var i=0; i<classes.length;i++){
+			vis.add(pv.Label).text(classes[i]).left(5 + i * w + w/2).textAngle(-Math.PI / 2).textAlign("bottom").top(0);
+		}
+
+		for(var i=0; i<datasets.length;i++){
+			vis.add(pv.Label).text(datasets[i]).left(-10).textAlign("right").top(5 + i*h + h/2);
+		}
+		vis.render();
+
+	  </script>
+    </div>
+  </div>
+</body>
+</html>
