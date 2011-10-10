@@ -6,12 +6,13 @@ dataset = pytassium.Dataset('kasabi-directory',api_key)
 response, data = dataset.select('''
 PREFIX void:<http://rdfs.org/ns/void#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT ?t ?c ?count
 WHERE{
   ?d a void:Dataset; void:classPartition ?p; dct:title ?t.
   ?p void:class ?c;
      void:entities ?count.
-  FILTER(?count>'2')
+  FILTER(xsd:integer(?count)>2)
 } 
 ''')
 if response.status in range(200,300):
